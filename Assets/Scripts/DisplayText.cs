@@ -12,7 +12,7 @@ public class DisplayText : MonoBehaviour
     /// Displays text and fades it out
     /// </summary>
     /// <para name='txt'>Text to display</para>
-    public void Display(string txt, int fadeDelay=1)
+    public void Display(string txt, float fadeDelay=1f)
     {
         if (!string.IsNullOrEmpty(s.text))
 			{
@@ -24,7 +24,7 @@ public class DisplayText : MonoBehaviour
     }
 
     // FadeOut enumerator
-    private IEnumerator FadeOut(int delay)
+    private IEnumerator FadeOut(float delay)
 	{
 		yield return new WaitForSeconds(delay);
 		float cTime = 0f;

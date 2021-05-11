@@ -11,12 +11,21 @@ public class InventoryCore : MonoBehaviour
     // Inventory dictionary, string key used an name, int value used as item count
     private static Dictionary<string, int> inventory = new Dictionary<string, int>();
 
+    // DisplayText script
+    private DisplayText td;
+
     /// <value>Maximum inventory slots</value>
     public int MaximumSlots;
     /// <value> Maximum item stack size </value>
     public int MaxItemStack;
     /// <value>InventoryDisplay UI element</value>
     public Text inventoryDisplay;
+
+    // Unity start function
+    void Start()
+    {
+        td = GameObject.Find("DisplayText").GetComponent<DisplayText>();
+    }
 
     /// <summary>
     /// Adds an item to the inventory
@@ -26,12 +35,18 @@ public class InventoryCore : MonoBehaviour
     public bool AddItem(string _name)
     {
         if (inventory.Count >= MaximumSlots)
+        {
+            td.Display("You are holding too many items!", 1.5f);
             return false;
+        }
 
         if (inventory.ContainsKey(_name))
         {
             if (inventory[_name] > MaxItemStack)
+            {
+                td.Display($"You can't hold any more {_name}", 1.5f);
                 return false;
+            }
             inventory[_name] += 1;
         }
         else
@@ -55,6 +70,7 @@ public class InventoryCore : MonoBehaviour
         inventory[_name] -= 1;
         if (inventory[_name] == 0)
             inventory.Remove(_name);
+
         UpdateInventoryDisplay();
         return true;
     }

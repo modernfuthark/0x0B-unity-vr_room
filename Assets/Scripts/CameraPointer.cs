@@ -24,13 +24,13 @@ using UnityEngine;
 /// </summary>
 public class CameraPointer : MonoBehaviour
 {
-    // Maximum raycast distance
+	// Maximum raycast distance
 	private const float _maxDistance = 10;
-    // Object being looked at
+	// Object being looked at
 	private GameObject _gazedAtObject = null;
-    /// <value>TeleportIndicator gameobject, used to show where the user would teleport</value>
+	/// <value>TeleportIndicator gameobject, used to show where the user would teleport</value>
 	public GameObject teleportIndicator;
-    /// <value>Player gameobject</value>
+	/// <value>Player gameobject</value>
 	public GameObject player;
 
 	/// <summary>
@@ -59,27 +59,27 @@ public class CameraPointer : MonoBehaviour
 			_gazedAtObject = null;
 		}
 
-        // Teleporting
-        RaycastHit hitObj;
-        if (Physics.Raycast(transform.position, transform.forward, out hitObj, _maxDistance))
-        {
-            if (hitObj.transform.gameObject.tag == "ValidFloor")
-            {
-                teleportIndicator.gameObject.SetActive(true);
-                teleportIndicator.gameObject.transform.position = hitObj.point;
-            }
-            else
-            {
-                teleportIndicator.gameObject.SetActive(false);
-            }
-        }
+		// Teleporting
+		RaycastHit hitObj;
+		if (Physics.Raycast(transform.position, transform.forward, out hitObj, _maxDistance))
+		{
+			if (hitObj.transform.gameObject.tag == "ValidFloor")
+			{
+				teleportIndicator.gameObject.SetActive(true);
+				teleportIndicator.gameObject.transform.position = hitObj.point;
+			}
+			else
+			{
+				teleportIndicator.gameObject.SetActive(false);
+			}
+		}
 
 		if (Google.XR.Cardboard.Api.IsTriggerPressed)
 		{
-            if (teleportIndicator.gameObject.activeSelf)
-                player.transform.position = teleportIndicator.gameObject.transform.position + new Vector3(0, 2, 0);
-            else
-                _gazedAtObject?.SendMessage("OnPointerClick");
+			if (teleportIndicator.gameObject.activeSelf)
+				player.transform.position = teleportIndicator.gameObject.transform.position + new Vector3(0, 2, 0);
+			else
+				_gazedAtObject?.SendMessage("OnPointerClick");
 		}
 	}
 }

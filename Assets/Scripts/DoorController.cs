@@ -5,15 +5,21 @@ using UnityEngine.UI;
 
 public class DoorController : MonoBehaviour
 {
+    // Inventory gameobject
     private InventoryCore inventory;
+    // DisplayText script
     private DisplayText td;
+    /// <value>Console gameobject</value>
     public Text console;
 
+    // Unity start function
     void Start()
     {
         inventory = GameObject.Find("Player").GetComponent<InventoryCore>();
         td = GameObject.Find("DisplayText").GetComponent<DisplayText>();
     }
+
+    // OnTriggerEnter function, door system
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Player")
@@ -34,6 +40,7 @@ public class DoorController : MonoBehaviour
         }
     }
 
+    // OnTriggerExit function, close door
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "Player")

@@ -5,16 +5,22 @@ using UnityEngine.UI;
 
 public class InteractionController : MonoBehaviour
 {
-    public string InteractionText;
-    public int fadeDelay;
-    private DisplayText tp;
+	/// <value>InteractionText string value</value>
+	public string InteractionText;
+	/// <value>Text fade out delay</value>
+	public float fadeDelay;
+	// DisplayText script
+	private DisplayText td;
 
-    void start()
-    {
-        tp = GameObject.Find("DisplayText").GetComponent<DisplayText>();
-    }
-    void OnPointerClick()
-    {
-        tp.Display(InteractionText, fadeDelay);
-    }
+	// Unity start function
+	void Start()
+	{
+		td = GameObject.Find("DisplayText").GetComponent<DisplayText>();
+	}
+
+	// Google XR pointer click
+	void OnPointerClick()
+	{
+		td.Display(InteractionText, fadeDelay);
+	}
 }

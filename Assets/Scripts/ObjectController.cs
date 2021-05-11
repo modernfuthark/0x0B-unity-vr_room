@@ -28,8 +28,10 @@ public class ObjectController : MonoBehaviour
     // Google XR pointer enter
 	void OnPointerEnter()
 	{
+		if (gameObject.name == "Flashlight") // Special case
+			return;
 		var mats = gameObject.GetComponent<MeshRenderer>().materials;
-		mats[1] = heldMat;
+		mats[mats.Length - 1] = heldMat; // ObjectPickup is last material
 		gameObject.GetComponent<MeshRenderer>().materials = mats;
 	}
 
@@ -47,7 +49,7 @@ public class ObjectController : MonoBehaviour
 		string _name = string.IsNullOrEmpty(objectName) ? gameObject.name : objectName;
 		if (inv.AddItem(_name))
 		{
-            textDisplayer.Display($"Picked up <b><color=teal>{_name}</color></b>.", 1);
+            textDisplayer.Display($"Picked up <b><color=teal>{_name}</color></b>.", 2);
 			gameObject.SetActive(false);
 		}
 	}
